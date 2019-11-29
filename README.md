@@ -21,8 +21,10 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 
 1. `git clone https://github.com/IronWill79/Rotten-GameOff2019`
 2. In any modern browser, open the `Index.html` file within the `Rotten-GameOff2019` folder
-3. **???**
-4. **Have fun :)**
+3. Read **Legend** below to know what you're looking at
+4. Read **Controls** below to know how to control yourself
+5. The aim is to find the **Chest** with the **Winning Item** in it
+6. Have fun :)
 ---
 ### Legend
 
@@ -32,6 +34,7 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 ---
 ### Controls
 
-* Use the numpad keys with NumLock on and open a Chest with Return or Spacebar.
+* The 8 directions are the numpad keys with NumLock on
   1. TODO: Add laptop keys such as `IOP;/.,K` for controls
   2. TODO: Add ability to remap controls
+* Open a Chest while standing on that tile with Return or Spacebar
