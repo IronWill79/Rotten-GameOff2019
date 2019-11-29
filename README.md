@@ -17,6 +17,9 @@ Corridors and rooms may have fall traps that require you to **'jump'** over them
 I'll have some corridors that are covered in ice, so when you move onto them, you **'move rapidly'** until you get off the end of the ice patch, or run into an enemy or NPC.
 
 ---
+### Story
+* You are Rotten, a zombie on the Day of the Dead that has to find a potion to restore their humanity
+---
 ### Installation
 
 1. `git clone https://github.com/IronWill79/Rotten-GameOff2019`
@@ -42,3 +45,4 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 * Add other directional keys such as `IOP;/.,K` for users without a full sized keyboard  
 * Add ability to remap controls  
 * Rework into ES2015 modules using `<script type="module" src="https://github.com/ondras/rot.js/raw/master/lib/index.js">`  
+* Change to graphical mode after creating some graphics
