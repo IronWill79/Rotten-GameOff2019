@@ -14,6 +14,7 @@ const foeNumber = 10;
 const noChestMessage = "There is no chest here!";
 const winItemMessage = "Hooray! You found the winning chest!";
 const emptyChestMessage = "This chest is empty :-(";
+const topologyOption = 4;
 
 var Game = {
     display: null,
@@ -197,7 +198,7 @@ Foe.prototype.act = function() {
     var passableCallback = function(x, y) {
         return (x + "," + y in Game.map);
     };
-    var astar = new ROT.AStar(x, y, passableCallback, {topology: topologyOption});
+    var astar = new ROT.Path.AStar(x, y, passableCallback, {topology: topologyOption});
 
     var path = [];
     var pathCallback = function(x, y) {
