@@ -98,7 +98,7 @@ Game._createPlayer = function(freeCells) {
     var parts = key.split(",");
     var x = parseInt(parts[0]);
     var y = parseInt(parts[1]);
-    this.player = new Player(x, y);
+    return new Player(x, y);
 };
 
 Game._createNPC = function(what, freeCells) {
@@ -160,7 +160,6 @@ Player.prototype.handleEvent = function(e) {
     this._x = newX;
     this._y = newY;
     this._draw();
-    window.removeEventListener("keydown", this);
     Game.engine.unlock();
 };
 
@@ -205,4 +204,17 @@ Foe.prototype.act = function() {
         path.push([x, y]);
     };
     astar.compute(this._x, this._y, pathCallback);
+
+    path.shift();   /* remove Foe's position */
+    if (path.length == 1) {
+        Game.engine.lock();
+        alert("Game over - 'Caught' by the foe");
+    } else {
+        x = path[0][0];
+        y = path[0][1];
+        Game.display.draw(this._x, this._y, Game.map[this._x + "," + this._y]);
+        this._x = x;
+        this._y = y;
+        this._draw();
+    }
 };
