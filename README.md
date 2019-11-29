@@ -21,6 +21,8 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 * You are Rotten, a zombie on the Day of the Dead that has to find a potion to restore their humanity
 * Health decreases with each move, giving a limited time to find the correct chest and avoid the Foe
 ---
+### [Play the latest version](https://ironwill79.itch.io/rotten)
+---
 ### Installation
 
 1. `git clone https://github.com/IronWill79/Rotten-GameOff2019`
@@ -28,8 +30,8 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 3. Read **Legend** below to know what you're looking at
 4. Read **Controls** below to know how to control yourself
 5. The aim is to find the **Chest** with the **Potion** in it
-6. The foe will 'chase' you and remove health if he catches you, but will pause for 3 moves afterwards
-6. Have fun :)
+6. The **foe** will 'chase' you and if he catches you, game over
+7. Good luck and have fun :)
 ---
 ### Legend
 

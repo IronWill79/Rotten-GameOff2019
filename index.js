@@ -53,9 +53,9 @@ Game._generateMap = function() {
 
     this._drawWholeMap();
 
-    this.player = this._createPlayer(freeCells);
+    this.player = this._createBeing(Player, freeCells);
 
-    this.foe = this._createNPC(Foe, freeCells);
+    this.foe = this._createBeing(Foe, freeCells);
 };
 
 Game._drawWholeMap = function() {
@@ -93,16 +93,7 @@ Game._generateChests = function(freeCells) {
     }
 };
 
-Game._createPlayer = function(freeCells) {
-    var index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
-    var key = freeCells.splice(index, 1)[0];
-    var parts = key.split(",");
-    var x = parseInt(parts[0]);
-    var y = parseInt(parts[1]);
-    return new Player(x, y);
-};
-
-Game._createNPC = function(what, freeCells) {
+Game._createBeing = function(what, freeCells) {
     var index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
     var key = freeCells.splice(index, 1)[0];
     var parts = key.split(",");
@@ -161,6 +152,7 @@ Player.prototype.handleEvent = function(e) {
     this._x = newX;
     this._y = newY;
     this._draw();
+    window.removeEventListener("keydown", this);
     Game.engine.unlock();
 };
 
@@ -207,7 +199,7 @@ Foe.prototype.act = function() {
     astar.compute(this._x, this._y, pathCallback);
 
     path.shift();   /* remove Foe's position */
-    if (path.length == 1) {
+    if (path.length <= 1) {
         Game.engine.lock();
         alert("Game over - 'Caught' by the foe");
     } else {
