@@ -10,3 +10,14 @@ Corridors and rooms may have fall traps that require you to **'jump'** over them
 **'Bounds'** are the walls.
 I'll have some corridors that are covered in ice, so when you move onto them, you **'move rapidly'** until you get off the end of the ice patch, or run into an enemy or NPC.
 
+#### Legend
+
+@ - Player
+C - Chest. One of these has the winning item.
+F - Foe. They will 'chase' you down.
+
+#### Controls
+
+Use the numpad keys with NumLock on and open a Chest with Return or Spacebar.
+// TODO: Add laptop keys such as IOP;/.,K for controls
+// TODO: Add ability to remap controls
