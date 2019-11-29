@@ -39,12 +39,14 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 ---
 ### Controls
 
-* The 8 directions are the numpad keys with NumLock on
+* The 8 directions are :-
+* `Q W E`
+* `A   D`
+* `Z X C`
 * Open a Chest while standing on that tile with Return or Spacebar
 ---
 ### TODOs
 
-* Add other directional keys such as `IOP;/.,K` for users without a full sized keyboard  
 * Add ability to remap controls  
 * Rework into ES2015 modules using `<script type="module" src="https://github.com/ondras/rot.js/raw/master/lib/index.js">`  
 * Change to graphical mode after creating some graphics

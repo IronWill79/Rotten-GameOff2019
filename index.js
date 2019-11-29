@@ -132,14 +132,14 @@ Player.prototype.act = function() {
 Player.prototype.handleEvent = function(e) {
     /* process user input */
     var keyMap = {};
-    keyMap[ROT.KEYS.VK_NUMPAD8] = 0;
-    keyMap[ROT.KEYS.VK_NUMPAD9] = 1;
-    keyMap[ROT.KEYS.VK_NUMPAD6] = 2;
-    keyMap[ROT.KEYS.VK_NUMPAD3] = 3;
-    keyMap[ROT.KEYS.VK_NUMPAD2] = 4;
-    keyMap[ROT.KEYS.VK_NUMPAD1] = 5;
-    keyMap[ROT.KEYS.VK_NUMPAD4] = 6;
-    keyMap[ROT.KEYS.VK_NUMPAD7] = 7;
+    keyMap[ROT.KEYS.VK_W] = 0;
+    keyMap[ROT.KEYS.VK_E] = 1;
+    keyMap[ROT.KEYS.VK_D] = 2;
+    keyMap[ROT.KEYS.VK_C] = 3;
+    keyMap[ROT.KEYS.VK_X] = 4;
+    keyMap[ROT.KEYS.VK_Z] = 5;
+    keyMap[ROT.KEYS.VK_A] = 6;
+    keyMap[ROT.KEYS.VK_Q] = 7;
 
     var code = e.keyCode;
 
