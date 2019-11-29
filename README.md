@@ -28,13 +28,13 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 ---
 ### Legend
 
-* @ - Player
-* C - Chest. One of these has the winning item.
-* F - Foe. They will 'chase' you down.
+* **@** - Player
+* **C** - Chest. One of these has the winning item.
+* **F** - Foe. They will 'chase' you down.
 ---
 ### Controls
 
 * The 8 directions are the numpad keys with NumLock on
-  1. TODO: Add laptop keys such as `IOP;/.,K` for controls
-  2. TODO: Add ability to remap controls
+   // TODO: Add laptop keys such as `IOP;/.,K` for controls  
+   // TODO: Add ability to remap controls  
 * Open a Chest while standing on that tile with Return or Spacebar
