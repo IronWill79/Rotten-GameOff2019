@@ -19,6 +19,7 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 ---
 ### Story
 * You are Rotten, a zombie on the Day of the Dead that has to find a potion to restore their humanity
+* Health decreases with each move, giving a limited time to find the correct chest and avoid the Foe
 ---
 ### Installation
 
@@ -26,13 +27,14 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 2. In any modern browser, open the `Index.html` file within the `Rotten-GameOff2019` folder
 3. Read **Legend** below to know what you're looking at
 4. Read **Controls** below to know how to control yourself
-5. The aim is to find the **Chest** with the **Winning Item** in it
+5. The aim is to find the **Chest** with the **Potion** in it
+6. The foe will 'chase' you and remove health if he catches you, but will pause for 3 moves afterwards
 6. Have fun :)
 ---
 ### Legend
 
-* **@** - Player
-* **C** - Chest. One of these has the winning item.
+* **@** - Rotten, the 'funky-fresh' zombie
+* **C** - Chest. One of these has the potion
 * **F** - Foe. They will 'chase' you down.
 ---
 ### Controls
