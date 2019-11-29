@@ -32,5 +32,5 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 ### Controls
 
 * Use the numpad keys with NumLock on and open a Chest with Return or Spacebar.
-  1. // TODO: Add laptop keys such as IOP;/.,K for controls
-  2. // TODO: Add ability to remap controls
+  1. TODO: Add laptop keys such as `IOP;/.,K` for controls
+  2. TODO: Add ability to remap controls
