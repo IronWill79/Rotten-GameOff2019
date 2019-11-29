@@ -25,12 +25,14 @@ var Game = {
 
         var scheduler = new ROT.Scheduler.Simple();
         scheduler.add(this.player, true);
+        scheduler.add(this.foe, true);
         this.engine = new ROT.Engine(scheduler);
         this.engine.start();
     },
     map: {},
     player: null,
-    winItem: null
+    winItem: null,
+    foe: null
 };
 
 Game._generateMap = function() {
@@ -48,11 +50,11 @@ Game._generateMap = function() {
 
     this._generateChests(freeCells);
 
-    this._generateFoes(freeCells);
-
     this._drawWholeMap();
 
-    this._createPlayer(freeCells);
+    this.player = this._createPlayer(freeCells);
+
+    this.foe = this._createNPC(Foe, freeCells);
 };
 
 Game._drawWholeMap = function() {
@@ -90,14 +92,6 @@ Game._generateChests = function(freeCells) {
     }
 };
 
-Game._generateFoes = function(freeCells) {
-    for (var i = 0; i < foeNumber; i++) {
-        var index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
-        var key = freeCells.splice(index, 1)[0];
-        this.map[key] = foeTile;
-    }
-};
-
 Game._createPlayer = function(freeCells) {
     var index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
     var key = freeCells.splice(index, 1)[0];
@@ -105,6 +99,15 @@ Game._createPlayer = function(freeCells) {
     var x = parseInt(parts[0]);
     var y = parseInt(parts[1]);
     this.player = new Player(x, y);
+};
+
+Game._createNPC = function(what, freeCells) {
+    var index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
+    var key = freeCells.splice(index, 1)[0];
+    var parts = key.split(",");
+    var x = parseInt(parts[0]);
+    var y = parseInt(parts[1]);
+    return new what(x, y);
 };
 
 var Player = function(x, y) {
@@ -173,3 +176,16 @@ Player.prototype._checkChest = function() {
         alert(emptyChestMessage);
     }
 };
+
+var Foe = function(x, y) {
+    this._x = x;
+    this._y = y;
+    this._foeTile = foeTile;
+    this._foeColor = foeColor;
+    this._draw();
+};
+
+Foe.prototype._draw = function() {
+    Game.display.draw(this._x, this._y, this._foeTile, this._foeColor);
+};
+
