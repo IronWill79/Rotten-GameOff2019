@@ -35,6 +35,8 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 ### Controls
 
 * The 8 directions are the numpad keys with NumLock on
+
    // TODO: Add laptop keys such as `IOP;/.,K` for controls  
    // TODO: Add ability to remap controls  
+
 * Open a Chest while standing on that tile with Return or Spacebar
