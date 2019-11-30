@@ -4,7 +4,7 @@
 ### A Browser-based JavaScript Roguelike game using rot.js
 Started at approximately 2019-11-29T0916+10 for Game Off 2019
 
-![alt text](https://github.com/IronWill79/Rotten-GameOff2019/raw/master/images/Rotten-GameOff2019v0.01.png "Rotten v0.01 screenshot")
+![alt text](https://github.com/IronWill79/Rotten-GameOff2019/raw/master/images/Rotten-GameOff2019v0.1.0.png "Rotten v0.1.0 screenshot")
 ---
 The theme is **'Leaps and Bounds'**. Keywords are **'evolve'**, **'leap'**, **'bounds'**, **'changing or moving rapidly'**, **'2020'**.
 
