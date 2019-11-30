@@ -8,6 +8,7 @@ Started at approximately 2019-11-29T0916+10 for Game Off 2019
 The theme is **'Leaps and Bounds'**. Keywords are **'evolve'**, **'leap'**, **'bounds'**, **'changing or moving rapidly'**, **'2020'**.
 
 ---
+### Aims
 My avatar **'evolves'** by leveling up.
 
 Corridors and rooms may have fall traps that require you to **'jump'** over them once triggered.
@@ -19,7 +20,7 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 ---
 ### Story
 * You are Rotten, a zombie on the Day of the Dead that has to find a potion to restore their humanity
-* Health decreases with each move, giving a limited time to find the correct chest and avoid the Foe
+* TODO: Health decreases with each move, giving a limited time to find the correct chest and avoid the Foe
 ---
 ### [Play the latest version](https://ironwill79.itch.io/rotten)
 ---
@@ -42,13 +43,12 @@ I'll have some corridors that are covered in ice, so when you move onto them, yo
 ### Controls
 
 * The 8 directions are :-
-* `Q W E`
-* `A   D`
-* `Z X C`
+* `Q W E` `7 8 9`
+* `A   D` `4   6`
+* `Z X C` `1 2 3`
 * Open a Chest while standing on that tile with Return or Spacebar
 ---
 ### TODOs
 
 * Add ability to remap controls  
-* Rework into ES2015 modules using `<script type="module" src="https://github.com/ondras/rot.js/raw/master/lib/index.js">`  
 * Change to graphical mode after creating some graphics

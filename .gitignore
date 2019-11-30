@@ -1,5 +1,4 @@
-*.zip
-package-lock.json
-node_modules
 src
-package.json
+rot-js
+/index2.html
+/index2.js

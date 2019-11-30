@@ -1,5 +1,10 @@
-const width = 160;
-const height = 50;
+const displayWidth = 144;
+const displayHeight = 50;
+const fontSize = 12;
+const dungeonWidth = 100;
+const dungeonHeight = 50;
+const leftJustify = dungeonWidth + 5;
+const titleMargin = 5;
 const dungeonTile = ".";
 const chestTile = "C";
 const foeTile = "F";
@@ -11,16 +16,18 @@ const foeColor = "#ffc0cb";
 const playerColor = "#FF0";
 const chestNumber = 10;
 const foeNumber = 10;
+const playerHealth = 20;
 const noChestMessage = "There is no chest here!";
 const winItemMessage = "Hooray! You found the winning chest!";
 const emptyChestMessage = "This chest is empty :-(";
+const welcomeMessage = "Welcome to Rotten";
 const topologyOption = 4;
 
 var Game = {
     display: null,
     engine: null,
     init: function() {
-        this.display = new ROT.Display({width: width, height: height});
+        this.display = new ROT.Display({width: displayWidth, height: displayHeight, fontSize: fontSize});
         document.body.appendChild(this.display.getContainer());
         this._generateMap();
 
@@ -37,7 +44,7 @@ var Game = {
 };
 
 Game._generateMap = function() {
-    var digger = new ROT.Map.Rogue(width, height);
+    var digger = new ROT.Map.Rogue(dungeonWidth, dungeonHeight);
     var freeCells = [];
 
     var digCallback = function(x, y, value) {
@@ -103,6 +110,7 @@ Game._createBeing = function(what, freeCells) {
 };
 
 var Player = function(x, y) {
+    this.health = playerHealth;
     this._x = x;
     this._y = y;
     this._avatar = playerTile;
@@ -112,6 +120,7 @@ var Player = function(x, y) {
 
 Player.prototype._draw = function() {
     Game.display.draw(this._x, this._y, this._avatar, this._color);
+    Game.display.drawText(leftJustify + titleMargin, 3, welcomeMessage);
 };
 
 Player.prototype.act = function() {
@@ -124,13 +133,29 @@ Player.prototype.handleEvent = function(e) {
     /* process user input */
     var keyMap = {};
     keyMap[ROT.KEYS.VK_W] = 0;
+    keyMap[ROT.KEYS.VK_NUMPAD8] = 0;
+    keyMap[ROT.KEYS.VK_UP] = 0;
     keyMap[ROT.KEYS.VK_E] = 1;
+    keyMap[ROT.KEYS.VK_NUMPAD9] = 1;
+    keyMap[ROT.KEYS.VK_PAGE_UP] = 1;
     keyMap[ROT.KEYS.VK_D] = 2;
+    keyMap[ROT.KEYS.VK_NUMPAD6] = 2;
+    keyMap[ROT.KEYS.VK_RIGHT] = 2;
     keyMap[ROT.KEYS.VK_C] = 3;
+    keyMap[ROT.KEYS.VK_NUMPAD3] = 3;
+    keyMap[ROT.KEYS.VK_PAGE_DOWN] = 3;
     keyMap[ROT.KEYS.VK_X] = 4;
+    keyMap[ROT.KEYS.VK_NUMPAD2] = 4;
+    keyMap[ROT.KEYS.VK_DOWN] = 4;
     keyMap[ROT.KEYS.VK_Z] = 5;
+    keyMap[ROT.KEYS.VK_NUMPAD1] = 5;
+    keyMap[ROT.KEYS.VK_END] = 5;
     keyMap[ROT.KEYS.VK_A] = 6;
+    keyMap[ROT.KEYS.VK_NUMPAD4] = 6;
+    keyMap[ROT.KEYS.VK_LEFT] = 6;
     keyMap[ROT.KEYS.VK_Q] = 7;
+    keyMap[ROT.KEYS.VK_NUMPAD7] = 7;
+    keyMap[ROT.KEYS.VK_HOME] = 7;
 
     var code = e.keyCode;
 
