@@ -2,10 +2,15 @@
 <html>
     <head>
         <title>Rotten - Game Off 2019</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
         <script src="https://cdn.jsdelivr.net/npm/rot-js@2.1.1/dist/rot.js" integrity="sha256-VOEX5aE+LBoIDJ43xtPB9v36P9TTEVZtF36SHI0Eb58=" crossorigin="anonymous"></script>
         <script src="index.js"></script>
     </head>
     <body onload="Game.init()">
         <h1>Rotten - Game Off 2019 entry - Press F5 after Game Over to start again</h1>
+        <div id="gameContainer" class="container">
+            <div id="map" class="map"></div>
+            <div id="ui" class="ui"></div>
+        </div>
     </body>
 </html>

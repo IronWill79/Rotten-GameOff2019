@@ -1,34 +1,74 @@
-const displayWidth = 144;
-const displayHeight = 50;
-const fontSize = 12;
-const dungeonWidth = 100;
-const dungeonHeight = 50;
-const leftJustify = dungeonWidth + 5;
-const titleMargin = 5;
+const NUMPAD_PLUS = 107;
+const NUMPAD_MINUS = 109;
+const defaultFontSize = 16;
+const oldSchoolFontSize = 12;
+const fontSizes = [
+    10, 11, 12, 14, 16, 18, 24
+];
+const cellWidth = 4;
+const cellHeight = 4;
+const roomWidthMin = 4;
+const roomWidthMax = 8;
+const roomWidth = [roomWidthMin, roomWidthMax];
+const roomHeightMin = 4;
+const roomHeightMax = 8;
+const roomHeight = [roomHeightMin, roomHeightMax];
+const dungeonWidth = 90;
+const dungeonHeight = 48;
+const uiWidth = 54;
+const uiHeight = 48;
+const uiLeftMargin = 0;
+const uiCenterPosition = uiWidth / 2;
+const uiRightMargin = uiWidth - 2;
+const uiCenterJustify = function(text) {
+    return uiCenterPosition - (text.length / 2) - 1;
+};
+const uiRightJustify = function(text) {
+    return uiRightMargin - text.length;
+};
+const titleMargin = 3;
+const titleLine = 3;
+const statusLine = 6;
+const chestLine = 8;
+const gameOverLine = 15;
 const dungeonTile = ".";
 const chestTile = "C";
-const foeTile = "F";
+const foeTile = "V";
 const playerTile = "@";
-const defaultColor = "#EEE";
-const dungeonColor = "#FFF";
-const chestColor = "#0BB5FF";
-const foeColor = "#ffc0cb";
-const playerColor = "#FF0";
-const chestNumber = 10;
-const foeNumber = 10;
+const defaultColor = "white";
+const dungeonColor = "goldenrod";
+const chestColor = "#4060FE";
+const foeColor = "red";
+const playerColor = "#40FE5A";
+const numChests = 10;
+const foeName = "Vision";
 const playerHealth = 20;
 const noChestMessage = "There is no chest here!";
 const winItemMessage = "Hooray! You found the winning chest!";
 const emptyChestMessage = "This chest is empty :-(";
 const welcomeMessage = "Welcome to Rotten";
+const gameOverMessage = `Game over - 'Caught' by ${foeName}`;
+const statusMessages = [
+    `Please look for the potion, and avoid ${foeName}`,
+    `The ${foeName} is in this room`,
+    `There is a chest in this room`,
+    `There is a chest and ${foeName} in this room`
+];
 const topologyOption = 4;
+let currentFontSize = 2;
 
 var Game = {
+    fontSize: defaultFontSize, // 12 is around 1024x768 screen
     display: null,
+    mapDisplay: null,
+    uiDisplay: null,
     engine: null,
     init: function() {
-        this.display = new ROT.Display({width: displayWidth, height: displayHeight, fontSize: fontSize});
-        document.body.appendChild(this.display.getContainer());
+        this.display = new ROT.Display({ width: dungeonWidth, height: dungeonHeight, fontSize: fontSizes[currentFontSize] });
+        document.getElementById('map').appendChild(this.display.getContainer());
+        this.uiDisplay = new ROT.Display({ width: uiWidth, height: uiHeight, fontSize: fontSizes[currentFontSize] });
+        document.getElementById('ui').appendChild(this.uiDisplay.getContainer());
+        this.drawUI();
         this._generateMap();
 
         var scheduler = new ROT.Scheduler.Simple();
@@ -40,11 +80,23 @@ var Game = {
     map: {},
     player: null,
     winItem: null,
-    foe: null
+    foe: null,
+    statusID: 0,
+};
+
+Game.drawUI = function() {
+    this.uiDisplay.clear();
+    this.uiDisplay.drawText(uiCenterJustify(welcomeMessage), titleLine, welcomeMessage);
+    this.uiDisplay.drawText(uiCenterJustify(statusMessages[this.statusID]), statusLine, statusMessages[this.statusID]);
 };
 
 Game._generateMap = function() {
-    var digger = new ROT.Map.Rogue(dungeonWidth, dungeonHeight);
+    var digger = new ROT.Map.Rogue(dungeonWidth, dungeonHeight, {
+        cellWidth: cellWidth,
+        cellHeight: cellHeight,
+        roomWidth: roomWidth,
+        roomHeight: roomHeight
+    });
     var freeCells = [];
 
     var digCallback = function(x, y, value) {
@@ -92,7 +144,7 @@ Game._colorizeTile = function(c) {
 };
 
 Game._generateChests = function(freeCells) {
-    for (var i = 0; i < chestNumber; i++) {
+    for (var i = 0; i < numChests; i++) {
         var index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
         var key = freeCells.splice(index, 1)[0];
         this.map[key] = chestTile;
@@ -109,8 +161,25 @@ Game._createBeing = function(what, freeCells) {
     return new what(x, y);
 };
 
+Game.biggerText = function() {
+    if (currentFontSize != 6) {
+        currentFontSize++;
+    };
+    this.display.setOptions({ fontSize: fontSizes[currentFontSize] });
+    this.uiDisplay.setOptions({ fontSize: fontSizes[currentFontSize] });
+};
+
+Game.smallerText = function() {
+    if (currentFontSize != 0) {
+        currentFontSize--;
+    };
+    this.display.setOptions({ fontSize: fontSizes[currentFontSize] });
+    this.uiDisplay.setOptions({ fontSize: fontSizes[currentFontSize] });
+};
+
 var Player = function(x, y) {
     this.health = playerHealth;
+    this.chestMessage = false;
     this._x = x;
     this._y = y;
     this._avatar = playerTile;
@@ -120,7 +189,6 @@ var Player = function(x, y) {
 
 Player.prototype._draw = function() {
     Game.display.draw(this._x, this._y, this._avatar, this._color);
-    Game.display.drawText(leftJustify + titleMargin, 3, welcomeMessage);
 };
 
 Player.prototype.act = function() {
@@ -164,6 +232,16 @@ Player.prototype.handleEvent = function(e) {
         return;
     }
 
+    if (code == NUMPAD_PLUS || code == ROT.KEYS.VK_PLUS || code == ROT.KEYS.VK_EQUALS) {
+        Game.biggerText();
+        return;
+    }
+
+    if (code == NUMPAD_MINUS || code == ROT.KEYS.VK_HYPHEN_MINUS) {
+        Game.smallerText();
+        return;
+    }
+
     if (!(code in keyMap)) { return; }
 
     var diff = ROT.DIRS[8][keyMap[code]];
@@ -177,6 +255,12 @@ Player.prototype.handleEvent = function(e) {
     this._x = newX;
     this._y = newY;
     this._draw();
+    // if (this.chestMessage) {
+    //     Game.display.clear();
+    //     Game._drawWholeMap();
+    //     Game.drawUI();
+    //     this._draw();
+    // }
     window.removeEventListener("keydown", this);
     Game.engine.unlock();
 };
@@ -185,12 +269,17 @@ Player.prototype._checkChest = function() {
     var key = this._x + "," + this._y;
     if (Game.map[key] != chestTile) {
         alert(noChestMessage);
+        // Game.uiDisplay.drawText(uiLeftMargin, chestLine, noChestMessage);
+        // this.chestMessage = true;
     } else if (key == Game.winItem) {
         alert(winItemMessage);
+        // Game.uiDisplay.drawText(uiLeftMargin, chestLine, winItemMessage);
         Game.engine.lock();
         window.removeEventListener("keydown", this);
     } else {
         alert(emptyChestMessage);
+        // Game.uiDisplay.drawText(uiLeftMargin, chestLine, emptyChestMessage);
+        // this.chestMessage = true;
     }
 };
 
@@ -226,7 +315,7 @@ Foe.prototype.act = function() {
     path.shift();   /* remove Foe's position */
     if (path.length <= 1) {
         Game.engine.lock();
-        alert("Game over - 'Caught' by the foe");
+        Game.display.drawText(uiLeftMargin, gameOverLine, gameOverMessage);
     } else {
         x = path[0][0];
         y = path[0][1];
